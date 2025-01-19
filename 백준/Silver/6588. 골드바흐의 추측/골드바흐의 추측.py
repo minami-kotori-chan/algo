@@ -1,15 +1,13 @@
 import sys
 
-prime=[True]*(1000001)
+prime=[True]*1000001
 prime[1]=False
-
-for i in range(2,int(1000000**0.5)+1):
+k=int(1000000**0.5)+1
+for i in range(2,k):
     if prime[i]==False:
         continue
-    j=2
-    while i*j<=1000000:
-        prime[i*j]=False
-        j+=1
+    for j in range(i*i,1000001,i):
+        prime[j]=False
 while True:
     goldbach_check=False
     n=int(sys.stdin.readline().rstrip())
