@@ -1,33 +1,29 @@
 import sys
 
 n=int(sys.stdin.readline().rstrip())
-s={}
+s=0
 
 for _ in range(n):
     input_op=sys.stdin.readline().rstrip().split()
     
     if len(input_op)>1:
         op_num=int(input_op[1])
+        op_bit=1<<(op_num-1)
     op_code=input_op[0]
+    
 
     if op_code=='add':
-        s[op_num]=0
+        s=s | op_bit 
     elif op_code=="remove":
-        if op_num in s:
-            s.pop(op_num)
+        s= s & (~op_bit)
     elif op_code=="check":
-        if op_num in s:
+        if s & op_bit==op_bit:
             print(1)
         else:
             print(0)
     elif op_code=="toggle":
-        if op_num in s:
-            s.pop(op_num)
-        else:
-            s[op_num]=0
+        s=s^op_bit
     elif op_code=="all":
-        s={}
-        for i in range(1,21):
-            s[i]=0
+        s=(1<<20)-1
     elif op_code=="empty":
-        s={}
+        s=0
