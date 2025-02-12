@@ -12,14 +12,15 @@ for i in range(m):
 q=[]
 v=[-1]*(n+1)
 heapq.heappush(q,[0,start])
-
+v[start]=0
 while q:
     cost,cur_v=heapq.heappop(q)
-    if v[cur_v]!=-1:
-        continue
-    v[cur_v]=cost
     for i in graph[cur_v]:
+        if v[i[0]]!=-1 and v[i[0]]<=cost+i[1]:
+            continue
         heapq.heappush(q,[cost+i[1],i[0]])
+        v[i[0]]=cost+i[1]
+    
 
 for i in range(1,n+1):
     if v[i]==-1:
