@@ -19,10 +19,27 @@ int main(void) {
 	for (int i = 0; i < m; i++) {
 		int temp;
 		cin >> temp;
-		if (binary_search(arr, arr + n, temp))
+		int st = 0, en = n - 1;
+		int result = 0;
+		while (st <= en) {
+			int mid = (st + en) / 2;
+			if (arr[mid] == temp) {
+				result = 1;
+				break;
+			}
+			else if (arr[mid] < temp) {
+				st = mid+1;
+			}
+			else if (arr[mid] > temp) {
+				en = mid-1;
+			}
+		}
+		if (result) {
 			cout << "1 ";
-		else
+		}
+		else {
 			cout << "0 ";
+		}
 	}
 	
 	return 0;
