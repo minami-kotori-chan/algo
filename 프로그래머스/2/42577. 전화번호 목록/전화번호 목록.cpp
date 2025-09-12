@@ -1,15 +1,22 @@
 #include <string>
 #include <vector>
-#include <algorithm>
+#include <unordered_set>
 
 using namespace std;
 
 bool solution(vector<string> phone_book) {
     bool answer = true;
-    sort(phone_book.begin(),phone_book.end());
-    for(int i=1;i<phone_book.size();i++){
-        if(phone_book[i].find(phone_book[i-1])==0){
-            return false;
+    unordered_set<string> set;
+    for(const auto& i : phone_book){
+        set.insert(i);
+    }
+    for(const auto& i : set){
+        string temp;
+        for(int j = 0;j<i.size()-1;j++){
+            temp+=i[j];
+            if(set.find(temp)!=set.end()){
+                return false;
+            }
         }
     }
     return true;
