@@ -1,28 +1,28 @@
 #include <string>
 #include <vector>
-#include <deque>
+
 using namespace std;
 
 vector<int> solution(vector<int> progresses, vector<int> speeds) {
-    vector<int> answer;
-    deque<int> que;
-    for(int i=0;i<progresses.size();i++){
-        int num=(100-progresses[i])/speeds[i];
-        if((100-progresses[i])%speeds[i]!=0){
-            num++;
-        }
-        que.push_back(num);
-        
-    }
-    while(!que.empty()){
-        int cur = que.front();
-        que.pop_front();
-        answer.push_back(1);
-        while(!que.empty()&&cur>=que.front()){
-            que.pop_front();
-            answer[answer.size()-1]++;
+    vector<pair<int,int>> answer;
+    // 7 3 19
+    for(int i = 0;i<speeds.size();i++){
+        int temp = (100-progresses[i])/speeds[i];
+        if((100-progresses[i])%speeds[i] != 0){
+            temp++;
         }
         
+        if(answer.size()==0 || answer.back().first<temp){
+            answer.push_back({temp,1});
+            
+        }
+        else{
+            answer.back().second+=1;
+        }
     }
-    return answer;
+    vector<int> result;
+    for(const auto& i : answer){
+        result.push_back(i.second);
+    }
+    return result;
 }
