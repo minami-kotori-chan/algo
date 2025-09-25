@@ -1,22 +1,14 @@
 #include <string>
 #include <vector>
-
+#include <iostream>
 using namespace std;
 
 int solution(vector<vector<int>> sizes) {
     int answer = 0;
-    int w=0,h=0;
-    for(const auto& i : sizes){
-        int area1=max(w,i[0])*max(h,i[1]);
-        int area2=max(w,i[1])*max(h,i[0]);
-        if(area1>area2){
-            w=max(w,i[1]);
-            h=max(h,i[0]);
-        }
-        else{
-            w=max(w,i[0]);
-            h=max(h,i[1]);
-        }
+    int w=min(sizes[0][0],sizes[0][1]),h=max(sizes[0][0],sizes[0][1]);
+    for(const auto& size : sizes){
+        h=max(max(size[0],size[1]),h);
+        w=max(min(size[0],size[1]),w);
     }
     answer=w*h;
     return answer;
