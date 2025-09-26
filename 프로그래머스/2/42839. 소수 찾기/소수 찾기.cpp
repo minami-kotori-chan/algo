@@ -1,39 +1,35 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <unordered_map>
+#include <unordered_set>
 
 using namespace std;
 
-bool is_prime(int n){
-    bool result=true;
-    if(n==1 || n==0) return false;
-    for(int i=2;i<n;i++){
-        if(n%i==0){
-            result=false;
-            break;
-        }
+int is_prime(int x)
+{
+    if(x<2) return 0;
+    for(int i=2;i<x;i++){
+        if(x%i==0) return 0;
     }
-    return result;
+    return 1;
 }
-int solution(string numbers) {
+int solution(string numbers) 
+{
     int answer = 0;
-    vector<int> arr;
-    unordered_map<int,int> prime_data;
-    for(const auto& i : numbers){
-        arr.push_back(i-'0');
-    }
-    sort(arr.begin(), arr.end());
+    string number = numbers;
+    unordered_set<int> set;
+    sort(number.begin(),number.end());
     do{
-        string temp;
-        for(int i=0;i<arr.size();i++){
-            temp+=to_string(arr[i]);
-            int val=stoi(temp);
-            if(prime_data[val]!=1 && is_prime(val)){
-                prime_data[val]=1;
-                answer++;
+        string tmp;
+        for(int i=0;i<number.size();i++){
+            tmp+=number[i];
+            if(set.find(stoi(tmp))==set.end()){
+                if(is_prime(stoi(tmp))){
+                    set.insert(stoi(tmp));
+                }
             }
         }
-    }while(next_permutation(arr.begin(),arr.end()));
+    }while(next_permutation(number.begin(),number.end()));
+    answer=set.size();
     return answer;
 }
