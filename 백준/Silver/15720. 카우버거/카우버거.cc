@@ -4,7 +4,6 @@
 using namespace std;
 #define FAST_IO cin.tie(0);cout.tie(0);ios_base::sync_with_stdio(false);
 
-int arr[200000] = { 0, };
 int main(void) {
 	FAST_IO;
 	int b, c, d;
